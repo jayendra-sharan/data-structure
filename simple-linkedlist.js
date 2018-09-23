@@ -104,15 +104,49 @@ LinkedList.prototype.search = function (data) {
   }
 }
 
+/**
+ * @description function to insert a node in the linked list at a given position.
+ * @param {any} data to be inserted in the node.
+ * @param {Number} position where the node needs to be inserted
+ */
+LinkedList.prototype.insertAt = function (data, position) {
+  // allow positions 1 to length + 1
+  if (position > 0 && position < this.length + 2) {
+    console.log ("Inserting: ", data, "at position: ", position);
+    var newNode = new Node (data);
+    if (position === 1) {
+      newNode.next = this.head;
+      this.head = newNode;
+    } else {
+      var count = 1,
+          currentNode = this.head;
+      while (count < position) {
+        prevNode = currentNode;
+        currentNode = currentNode.next;
+        count ++;
+      }
+      prevNode.next = newNode;
+      newNode.next = currentNode;
+    }
+    this.length ++;
+  } else {
+    console.log ("Invalid Position");
+  }
+}
+
 var sll = new LinkedList ();
 sll.search (10);
 sll.insert (10);
 sll.insert (20);
 sll.insert (30);
 sll.insert (40);
-sll.traverse ();
 sll.search (10);
 sll.search (40);
+sll.insertAt (25, 3);
+sll.insertAt (35, 5);
+sll.insertAt (5, 0);
+sll.insertAt (5, 1);
+sll.traverse ();
 sll.removeAt (3);
 sll.removeAt (3);
 sll.removeAt (1);
